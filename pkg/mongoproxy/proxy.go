@@ -186,9 +186,12 @@ func (p *Proxy) baseRequestHandler(ctx context.Context, r *plugins.Request) (bso
 		}
 
 		return bson.D{
+			{"authInfo", bson.D{
+				{"authenticatedUsers", authenticatedUsers},
+				{"authenticatedUserRoles", authenticatedUserRoles},
+				{"authenticatedUserPrivileges", authenticatedUserRoles},
+			}},
 			primitive.E{"ok", 1},
-			{"authenticatedUsers", authenticatedUsers},
-			{"authenticatedUserRoles", authenticatedUserRoles},
 		}, nil
 
 	case *command.HostInfo:
